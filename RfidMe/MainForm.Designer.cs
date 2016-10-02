@@ -37,8 +37,9 @@
             this.tagLabel.Location = new System.Drawing.Point(20, 9);
             this.tagLabel.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.tagLabel.Name = "tagLabel";
-            this.tagLabel.Size = new System.Drawing.Size(0, 37);
+            this.tagLabel.Size = new System.Drawing.Size(62, 37);
             this.tagLabel.TabIndex = 0;
+            this.tagLabel.Text = "tag";
             // 
             // MainForm
             // 

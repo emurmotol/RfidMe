@@ -141,7 +141,7 @@ namespace RfidMe
             incomming.Read(incommingBuffer, 0, incommingBytes);
 
             String tempString = new String(incommingBuffer);
-            form.BeginInvoke(this.incommingDelegate, tempString);
+            this.form.BeginInvoke(this.incommingDelegate, tempString);
         }
 
         private string getTag(string dataReceived)
