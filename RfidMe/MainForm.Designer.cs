@@ -29,44 +29,30 @@
         private void InitializeComponent()
         {
             this.tagLabel = new System.Windows.Forms.Label();
-            this.tagLinkLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // tagLabel
             // 
             this.tagLabel.AutoSize = true;
-            this.tagLabel.Location = new System.Drawing.Point(17, 9);
-            this.tagLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.tagLabel.Location = new System.Drawing.Point(20, 9);
+            this.tagLabel.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.tagLabel.Name = "tagLabel";
-            this.tagLabel.Size = new System.Drawing.Size(70, 39);
+            this.tagLabel.Size = new System.Drawing.Size(0, 37);
             this.tagLabel.TabIndex = 0;
-            this.tagLabel.Text = "Tag:";
-            // 
-            // tagLinkLabel
-            // 
-            this.tagLinkLabel.AutoSize = true;
-            this.tagLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.tagLinkLabel.Location = new System.Drawing.Point(103, 9);
-            this.tagLinkLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.tagLinkLabel.Name = "tagLinkLabel";
-            this.tagLinkLabel.Size = new System.Drawing.Size(0, 39);
-            this.tagLinkLabel.TabIndex = 2;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 39F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 59);
-            this.Controls.Add(this.tagLinkLabel);
+            this.ClientSize = new System.Drawing.Size(231, 56);
             this.Controls.Add(this.tagLabel);
-            this.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(8, 9, 8, 9);
+            this.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RfidMe";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -75,7 +61,6 @@
         #endregion
 
         private System.Windows.Forms.Label tagLabel;
-        public System.Windows.Forms.LinkLabel tagLinkLabel;
     }
 }
 

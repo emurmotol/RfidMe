@@ -13,16 +13,10 @@ namespace RfidMe
 {
     public partial class MainForm : Form
     {
-        private RfidMe rfid;
-
         public MainForm()
         {
             InitializeComponent();
-            rfid = new RfidMe(this);
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
+            RfidMe rfid = new RfidMe(this, tagLabel);
             rfid.init();
         }
     }

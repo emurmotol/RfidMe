@@ -15,25 +15,71 @@ namespace RfidMe
         private IncommingDelegate incommingDelegate;
         private SerialPort serialPort = new SerialPort();
         private string dataReceived = string.Empty;
-        private static int tagSize = 10;
+        private int tagSize = 10;
         private Form form;
+        private Control control;
 
-        public RfidMe(Form form)
+        public RfidMe(Form form, Control control = null)
         {
             this.form = form;
+            this.log(string.Format("[{0}] Initialized from form: {1}", this.timestamp(), form.Name));
+
+            if (control != null)
+            {
+                this.control = control;
+                this.log(string.Format("[{0}] Display data on control: {1}", this.timestamp(), control.Name));
+            }
+            else
+            {
+                this.log(string.Format("[{0}] Control not set.", this.timestamp()));
+            }
             this.incommingDelegate = new IncommingDelegate(this.appendData);
         }
 
         void appendData(string data)
         {
             this.dataReceived = this.dataReceived + data;
-            string tag = getTag(this.dataReceived);
+            this.lastResort(this.dataReceived);
+        }
+
+        private void lastResort(string dataReceived)
+        {
+            string tag = getTag(dataReceived);
 
             if (tag.Length == tagSize)
             {
-                //tag; 
+                this.log(string.Format("[{0}] Data received: {1}", this.timestamp(), dataReceived));
+                this.log(string.Format("[{0}] Tag: {1}", this.timestamp(), tag));
+                this.serialPort.Close();
+                this.log(string.Format("[{0}] Port is open: {1}", this.timestamp(), this.serialPort.IsOpen));
+
+                try
+                {
+                    if (this.control != null)
+                    {
+                        this.control.ResetText();
+                        this.control.Text = tag;
+                        this.log(string.Format("[{0}] {1}.Text: {2}", this.timestamp(), this.control.Name, tag));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.log(string.Format("[{0}] Error: {1}", this.timestamp(), ex.Message));
+                }
                 this.dataReceived = string.Empty;
+                this.serialPort.Open();
+                this.log(string.Format("[{0}] Port is open: {1}", this.timestamp(), this.serialPort.IsOpen));
             }
+        }
+
+        private string timestamp()
+        {
+            return DateTime.Now.ToString();
+        }
+
+        private void log(string text)
+        {
+            string.Format("\n{0}", text);
         }
 
         public bool init()
@@ -62,9 +108,10 @@ namespace RfidMe
                     this.serialPort.PortName = portName;
                     this.serialPort.Open();
 
-                    if (serialPort.IsOpen)
+                    if (this.serialPort.IsOpen)
                     {
                         isOpen = true;
+                        this.log(string.Format("[{0}] RFID reader found at: {1}", this.timestamp(), portName));
                         break;
                     }
                 }
@@ -72,12 +119,15 @@ namespace RfidMe
                 if (isOpen)
                 {
                     this.serialPort.DataReceived += SerialPort_DataReceived;
+                    this.log(string.Format("[{0}] Port is open: {1}", this.timestamp(), this.serialPort.IsOpen));
                     return true;
                 }
+                this.log(string.Format("[{0}] Port is close: {1}", this.timestamp(), "RFID reader not found."));
                 return false;
             }
             catch (Exception ex)
             {
+                this.log(string.Format("[{0}] Error: {1}", this.timestamp(), ex.Message));
                 return false;
             }
         }
